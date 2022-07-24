@@ -12,16 +12,16 @@ class ContactDetailsViewController: UIViewController {
     @IBOutlet var phone: UILabel!
     @IBOutlet var mail: UILabel!
     
-    var contact: Person!
+    var person: Person!
 
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = contact.fullName
+        title = person.fullName
 
-        phone.text = contact.phone
-        mail.text = contact.mail
+        phone.text = person.phone
+        mail.text = person.mail
     }
     
 

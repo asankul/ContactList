@@ -9,36 +9,44 @@ import UIKit
 
 class DetailedContactListViewController: UITableViewController {
     
-    let data = DataStore()
-    
-    var contacts: [Person] {
-        data.getContacts()
-    }
+    var persons: [Person] = []
 
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        contacts.count
+        persons.count
     }
 
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return contacts[section].fullName
+        return persons[section].fullName
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        1
+        2
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "detailedContacts", for: indexPath)
 
-        let contact = contacts[indexPath.section]
+        let person = persons[indexPath.section]
         var content = cell.defaultContentConfiguration()
-        content.text = contact.phone
-        content.secondaryText = contact.mail
+        
+        switch indexPath.row {
+        case 0:
+            content.text = person.phone
+            content.image = UIImage(systemName: Contacts.phone.rawValue)
+        default:
+            content.text = person.mail
+            content.image = UIImage(systemName: Contacts.email.rawValue)
+        }
+        
         cell.contentConfiguration = content
 
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 
 }
